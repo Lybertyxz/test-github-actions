@@ -60,7 +60,7 @@ ds_ping_result=$(curl --write-out '%{http_code}' --silent --output /dev/null htt
 if [ $ds_ping_result == "200" ]; then
     LOG $SUCCESS "Datastore emulator found at $DATASTORE_EMULATOR_HOST"
     LOG $DEFAULT "Deleting all Datastore data"
-    curl -s -XPOST http://$DATASTORE_EMULATOR_HOST/reset >/dev/null
+    curl -m 5.0 -s -XPOST "http://$DATASTORE_EMULATOR_HOST/reset" >/dev/null
 else
     LOG $ERROR "Datastore emulator not found at $DATASTORE_EMULATOR_HOST"
     exit 1
