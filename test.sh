@@ -51,7 +51,7 @@ if [ $es_ping_result == "200" ]; then
     LOG $SUCCESS "Elasticsearch local cluster found at ${ELASTICSEARCH_ADDR}"
 else
     LOG $ERROR "Elasticsearch local cluster not found at ${ELASTICSEARCH_ADDR}"
-    exit
+    exit 1
 fi
 
 # Datastore up check
@@ -63,7 +63,7 @@ if [ $ds_ping_result == "200" ]; then
     curl -s -XPOST http://$DATASTORE_EMULATOR_HOST/reset >/dev/null
 else
     LOG $ERROR "Datastore emulator not found at $DATASTORE_EMULATOR_HOST"
-    exit
+    exit 1
 fi
 
 # Pubsub up check
@@ -73,7 +73,7 @@ if [ $ds_ping_result == "200" ]; then
     LOG $SUCCESS "PubSub emulator found at $PUBSUB_EMULATOR_HOST"
 else
     LOG $ERROR "PubSub emulator not found at $PUBSUB_EMULATOR_HOST"
-    exit
+    exit 1
 fi
 
 # Memcache check
@@ -85,5 +85,5 @@ if [[ $mem_ping_result == *"PONG"* ]]; then
     redis-cli -h $MEMCACHE_HOST -p $MEMCACHE_PORT FLUSHALL >/dev/null
 else
     LOG $ERROR "Memcache service not found at $MEMCACHE_HOST:$MEMCACHE_PORT"
-    exit
+    exit 1
 fi

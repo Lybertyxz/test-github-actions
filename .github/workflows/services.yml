@@ -25,11 +25,21 @@ jobs:
 
       datastore:
         image: singularities/datastore-emulator
+        options: >-
+          --health-cmd "curl http://localhost:8081"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
         ports:
         - "8081:8081"
 
       pubsub:
         image: messagebird/gcloud-pubsub-emulator
+        options: >-
+          --health-cmd "curl http://localhost:8085"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
         ports:
         - "8085:8085"
 
