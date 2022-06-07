@@ -51,18 +51,13 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Check Elastic Search
-        run: |
-          curl http://localhost:9200/_cluster/health
+        run: curl http://localhost:9200/_cluster/health
           
       - name: Check Datastore
-        run: |
-          curl http://localhost:8081
+        run: curl http://localhost:8081
 
       - name: Check PubSub
-        run: |
-          curl http://localhost:8681
+        run: curl http://localhost:8681
 
-        - name: Check Memcache
-        run: |
-          nc localhost 6379
-          
+      - name: Check Memcache
+        run: nc localhost 6379
