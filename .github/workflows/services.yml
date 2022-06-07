@@ -56,8 +56,8 @@ jobs:
       - name: Check Datastore
         run: curl http://localhost:8081
 
-      #- name: Check PubSub
-      #  run: curl http://localhost:8085
+      - name: Check PubSub
+        run: curl http://localhost:8085
 
       - name: Check Memcache
         run: nc localhost 6379
