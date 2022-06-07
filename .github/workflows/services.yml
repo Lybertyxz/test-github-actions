@@ -52,5 +52,5 @@ jobs:
 
       - name: Check running services
         run: |
-          apt-get install netcat redis
+          sudo apt-get install netcat redis
           ./test.sh
