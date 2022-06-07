@@ -57,7 +57,7 @@ jobs:
       - name: Check Datastore
         run: |
           curl http://localhost:8081
-          
+
       - name: Check PubSub
         run: |
           curl http://localhost:8681
