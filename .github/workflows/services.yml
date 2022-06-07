@@ -23,20 +23,17 @@ jobs:
         ports:
         - "6379:6379"
 
-      datastore:
-        image: google/cloud-sdk
-        run: "gcloud beta emulators datastore start --no-store-on-disk --consistency 1.0 --host-port 0.0.0.0:8081"
-        ports:
-        - "8081:8081"
-
-      pubsub:
-        image: google/cloud-sdk
-        ports:
-        - "8085:8085"
-
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+
+      - name: start datastore emulator
+        uses: docker://google/cloud-sdk
+        run: gcloud beta emulators datastore start --no-store-on-disk --consistency 1.0 --host-port 0.0.0.0:8081
+
+      - name: start pubsub emulator
+        uses: docker://google/cloud-sdk
+        run: gcloud beta emulators pubsub start --project dev --host-port 0.0.0.0:8085
 
       - name: Check running services
         run: |
