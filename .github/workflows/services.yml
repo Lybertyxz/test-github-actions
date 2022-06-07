@@ -37,9 +37,9 @@ jobs:
         - "8081:8081"
 
       pubsub:
-        image: messagebird/gcloud-pubsub-emulator
+        image: knarz/pubsub-emulator
         options: >-
-          --health-cmd "curl http://localhost:8681"
+          --health-cmd "curl http://localhost:8085"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 10
