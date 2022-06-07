@@ -12,7 +12,6 @@ function LOG() {
 ###
 ### Environment and constants
 ###
-
 LOG $INFO "Initializing development environment"
 
 # Docker compose
