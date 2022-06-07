@@ -25,6 +25,9 @@ jobs:
 
       datastore:
         image: singularities/datastore-emulator
+        env:
+          - DATASTORE_PROJECT_ID=dev
+          - DATASTORE_LISTEN_ADDRESS=0.0.0.0:8081
         options: >-
           --health-cmd "curl http://localhost:8081"
           --health-interval 10s
