@@ -57,7 +57,7 @@ jobs:
         run: curl http://localhost:8081
 
       - name: Check PubSub
-        run: curl http://localhost:8681
+        run: curl http://localhost:8085
 
       - name: Check Memcache
         run: nc localhost 6379
