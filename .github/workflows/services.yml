@@ -8,13 +8,20 @@ jobs:
     runs-on: ubuntu-latest
     # Service containers to run with `container-job`
     services:
-      # Label used to access the service container
       redis:
         image: redis:5
+        ports:
+        - 6379/tcp
+
       elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+        ports:
+        - 9200/tcp
+        options: -e="discovery.type=single-node" --health-cmd="curl http://localhost:9200/_cluster/health" --health-interval=10s --health-timeout=5s --health-retries=10
+
       datastore:
         image: google/cloud-sdk
+
       pubsub:
         image: google/cloud-sdk
 
@@ -25,6 +32,3 @@ jobs:
 
       - name: Check running services
         run: ./test.sh
-        env:
-          REDIS_HOST: redis
-          REDIS_PORT: 6379
