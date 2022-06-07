@@ -60,4 +60,6 @@ jobs:
         run: curl http://localhost:8085
 
       - name: Check Memcache
-        run: sudo apt-get install netcat && nc localhost 6379
+        run: |
+          sudo apt-get install netcat
+          nc localhost 6379
