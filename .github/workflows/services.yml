@@ -11,7 +11,7 @@ jobs:
       # Label used to access the service container
       redis:
         image: redis:5
-      elastic_search:
+      elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
       datastore:
         image: google/cloud-sdk
