@@ -52,5 +52,5 @@ jobs:
 
       - name: Check running services
         run: |
-          sleep 20
+          apt-get install netcat redis
           ./test.sh
