@@ -50,7 +50,19 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Check running services
+      - name: Check Elastic Search
         run: |
-          sudo apt-get install netcat redis
-          ./test.sh
+          curl http://localhost:9200/_cluster/health
+          
+      - name: Check Datastore
+        run: |
+          curl http://localhost:8081
+          
+      - name: Check PubSub
+        run: |
+          curl http://localhost:8681
+
+        - name: Check Memcache
+        run: |
+          nc localhost 6379
+          

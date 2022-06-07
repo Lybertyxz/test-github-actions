@@ -60,7 +60,7 @@ ds_ping_result=$(curl --write-out '%{http_code}' --silent --output /dev/null htt
 if [ $ds_ping_result == "200" ]; then
     LOG $SUCCESS "Datastore emulator found at $DATASTORE_EMULATOR_HOST"
     LOG $DEFAULT "Deleting all Datastore data"
-    curl -m 5.0 -s -XPOST "http://$DATASTORE_EMULATOR_HOST/reset" >/dev/null
+    curl -m 5.0 -s -XPOST "http://$DATASTORE_EMULATOR_HOST/reset"
 else
     LOG $ERROR "Datastore emulator not found at $DATASTORE_EMULATOR_HOST"
     exit 1
@@ -82,7 +82,7 @@ mem_ping_result=$(printf "PING\r\n" | nc localhost 6379)
 if [[ $mem_ping_result == *"PONG"* ]]; then
     LOG $SUCCESS "Memcache service found at $MEMCACHE_HOST:$MEMCACHE_PORT"
     LOG $DEFAULT "Deleting all Cached data"
-    redis-cli -h $MEMCACHE_HOST -p $MEMCACHE_PORT FLUSHALL >/dev/null
+    redis-cli -h $MEMCACHE_HOST -p $MEMCACHE_PORT FLUSHALL
 else
     LOG $ERROR "Memcache service not found at $MEMCACHE_HOST:$MEMCACHE_PORT"
     exit 1
