@@ -20,19 +20,24 @@ jobs:
       redis:
         image: redis
         options: --entrypoint redis-server
+        ports:
+        - "6379:6379"
 
       datastore:
         image: google/cloud-sdk
+        ports:
+        - "8081:8081"
 
       pubsub:
         image: google/cloud-sdk
+        ports:
+        - "8085:8085"
 
     steps:
-      # Downloads a copy of the code in your repository before running CI tests
       - name: Check out repository code
         uses: actions/checkout@v3
 
       - name: Check running services
         run: |
-          sleep 60
+          sleep 5
           ./test.sh
