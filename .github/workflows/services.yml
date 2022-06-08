@@ -50,17 +50,20 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Check Elastic Search
-        run: curl http://localhost:9200/_cluster/health
+      #- name: Check Elastic Search
+      #  run: curl http://localhost:9200/_cluster/health
           
-      - name: Check Datastore
-        run: curl http://localhost:8081
+      #- name: Check Datastore
+      #  run: curl http://localhost:8081
 
-      - name: Check PubSub
-        run: curl http://localhost:8085
+      #- name: Check PubSub
+      #  run: curl http://localhost:8085
 
       - name: install redis
         run: sudo apt-get install redis
 
-      - name: Check Memcache
-        run: redis-cli ping
+      - name: run test
+        run: ./test.sh
+
+      #- name: Check Memcache
+      #  run: redis-cli ping

@@ -78,7 +78,7 @@ fi
 
 # Memcache check
 LOG $INFO "Testing connection to Memcache service..."
-mem_ping_result=$(printf "PING\r\n" | nc localhost 6379)
+mem_ping_result=$(printf "PING\r\n" | redis-cli ping)
 if [[ $mem_ping_result == *"PONG"* ]]; then
     LOG $SUCCESS "Memcache service found at $MEMCACHE_HOST:$MEMCACHE_PORT"
     LOG $DEFAULT "Deleting all Cached data"
