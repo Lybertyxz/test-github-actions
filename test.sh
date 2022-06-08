@@ -44,11 +44,18 @@ done
 ### Services check
 ###
 
-# Elasticsearch up check
 LOG $INFO "Testing connection to Elasticsearch..."
 es_ping_result=$(curl --write-out '%{http_code}' --silent --output /dev/null ${ELASTICSEARCH_ADDR})
 if [ $es_ping_result == "200" ]; then
     LOG $SUCCESS "Elasticsearch local cluster found at ${ELASTICSEARCH_ADDR}"
+    if [ ${ELASTICSEARCH_ADDR} == "http://localhost:9200" ]; then
+        LOG $DEFAULT "Deleting all Elasticsearch indices"
+        curl -s -XDELETE ${ELASTICSEARCH_ADDR}/discover >/dev/null
+        curl -s -XDELETE ${ELASTICSEARCH_ADDR}/user_liked >/dev/null
+        curl -s -XDELETE ${ELASTICSEARCH_ADDR}/user_removed >/dev/null
+        curl -s -XDELETE ${ELASTICSEARCH_ADDR}/user_passed >/dev/null
+        sleep 1
+    fi
 else
     LOG $ERROR "Elasticsearch local cluster not found at ${ELASTICSEARCH_ADDR}"
     exit 1
@@ -60,7 +67,7 @@ ds_ping_result=$(curl --write-out '%{http_code}' --silent --output /dev/null htt
 if [ $ds_ping_result == "200" ]; then
     LOG $SUCCESS "Datastore emulator found at $DATASTORE_EMULATOR_HOST"
     LOG $DEFAULT "Deleting all Datastore data"
-    curl -m 5.0 -s -XPOST "http://$DATASTORE_EMULATOR_HOST/reset"
+    curl -s -XPOST http://$DATASTORE_EMULATOR_HOST/reset >/dev/null
 else
     LOG $ERROR "Datastore emulator not found at $DATASTORE_EMULATOR_HOST"
     exit 1
@@ -82,8 +89,9 @@ mem_ping_result=$(printf "PING\r\n" | redis-cli ping)
 if [[ $mem_ping_result == *"PONG"* ]]; then
     LOG $SUCCESS "Memcache service found at $MEMCACHE_HOST:$MEMCACHE_PORT"
     LOG $DEFAULT "Deleting all Cached data"
-    redis-cli -h $MEMCACHE_HOST -p $MEMCACHE_PORT FLUSHALL
+    redis-cli -h $MEMCACHE_HOST -p $MEMCACHE_PORT FLUSHALL >/dev/null
 else
     LOG $ERROR "Memcache service not found at $MEMCACHE_HOST:$MEMCACHE_PORT"
+    LOG $ERROR "Use the next command to run the Memcache service before lauching the test suite"
     exit 1
 fi
