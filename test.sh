@@ -44,6 +44,7 @@ done
 ### Services check
 ###
 
+# ElasticSearch check
 LOG $INFO "Testing connection to Elasticsearch..."
 es_ping_result=$(curl --write-out '%{http_code}' --silent --output /dev/null ${ELASTICSEARCH_ADDR})
 if [ $es_ping_result == "200" ]; then
