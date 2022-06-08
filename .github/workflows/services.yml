@@ -24,10 +24,7 @@ jobs:
         - "6379:6379"
 
       datastore:
-        image: groovex/datastore-emulator
-        env:
-          DATASTORE_PROJECT_ID: emulator
-          DATASTORE_EMULATOR_HOST: localhost:8081
+        image: storytel/gcp-datastore-emulator
         options: >-
           --health-cmd "curl http://localhost:8081"
           --health-interval 10s
